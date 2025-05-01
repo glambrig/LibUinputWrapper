@@ -27,10 +27,8 @@ struct screensize
 
 /*
 *	initializes the uinput device and returns a file descriptor corresponding to it, or -1 if an error occurred
-*
-*	/dev/uinput is correct on raspiOS, but must be switched to /dev/input/uinput on other systems
 */
-int	setup_device(const char *device_name);
+int setup_device(const char *device_name, const char *path_to_uinput);
 
 /*
 *	sends any event to a device.
@@ -75,9 +73,9 @@ int	cleanup_device(int device_fd);
 # ifdef __cplusplus
 namespace uinputWrapperLib
 {
-    inline int setup_device(const char *device_name)
+	inline int setup_device(const char *device_name, const char *path_to_uinput);
 	{
-        return (::setup_device(device_name));
+        return (::setup_device(device_name, path_to_uinput));
     }
 
     inline int send_event_to_device(int device_fd, unsigned int which_key, int key_value, int event_type, u_int32_t release_key_after_ms)

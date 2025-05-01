@@ -1,4 +1,3 @@
-// #include "../inc/uinputWrapperLib.h"
 #include "uinputWrapperLib.h"
 
 int uinput_fd = -1;
@@ -61,11 +60,11 @@ static int	checkIoctlErrors()
 	return (0);
 }
 
-int setup_device(const char *device_name)
+int setup_device(const char *device_name, const char *path_to_uinput)
 {
 	struct uinput_user_dev uinp;
 
-	uinput_fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
+	uinput_fd = open(path_to_uinput, O_WRONLY | O_NONBLOCK);
 	if (uinput_fd < 0)
 	{
 		return (-1);
