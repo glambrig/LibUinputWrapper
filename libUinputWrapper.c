@@ -1,4 +1,4 @@
-#include "uinputWrapperLib.h"
+#include "libUinputWrapper.h"
 
 int wrapper_lib_uinput_fd = -1;
 

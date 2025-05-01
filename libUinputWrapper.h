@@ -1,5 +1,5 @@
-#ifndef UINPUTWRAPPERLIB_H
-# define UINPUTWRAPPERLIB_H
+#ifndef LIBUINPUTWRAPPER_H
+# define LIBUINPUTWRAPPER_H
 
 # ifdef __cplusplus
 extern "C"
@@ -71,7 +71,7 @@ int	cleanup_device(int device_fd);
 # endif
 
 # ifdef __cplusplus
-namespace uinputWrapperLib
+namespace libUinputWrapper
 {
 	/*
 	*	initializes the uinput device and returns a file descriptor corresponding to it, or -1 if an error occurred

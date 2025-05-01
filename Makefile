@@ -6,7 +6,7 @@ CC = gcc
 
 CFLAGS = -Wall
 
-SRC = uinputWrapperLib.c
+SRC = libUinputWrapper.c
 
 OBJ = $(SRC:.c=.o)
 
