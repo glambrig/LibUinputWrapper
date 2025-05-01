@@ -1,53 +1,53 @@
 #include "uinputWrapperLib.h"
 
-int uinput_fd = -1;
+int wrapper_lib_uinput_fd = -1;
 
 static int	checkIoctlErrors()
 {
 	int8_t errs[NB_BUTTONS];
 
-	errs[0] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_0);
-	errs[1] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_1);
-	errs[2] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_2);
-	errs[3] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_3);
-	errs[4] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_4);
-	errs[5] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_5);
-	errs[6] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_6);
-	errs[7] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_7);
-	errs[8] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_8);
-	errs[9] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_9);
+	errs[0] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_0);
+	errs[1] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_1);
+	errs[2] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_2);
+	errs[3] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_3);
+	errs[4] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_4);
+	errs[5] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_5);
+	errs[6] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_6);
+	errs[7] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_7);
+	errs[8] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_8);
+	errs[9] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_9);
 
-	errs[10] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_A);
-	errs[11] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_B);
-	errs[12] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_C);
-	errs[13] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_D);
-	errs[14] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_E);
-	errs[15] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_F);
-	errs[16] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_G);
-	errs[17] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_H);
-	errs[18] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_I);
-	errs[19] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_J);
-	errs[20] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_K);
-	errs[21] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_L);
-	errs[22] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_M);
-	errs[23] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_N);
-	errs[24] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_O);
-	errs[25] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_P);
-	errs[26] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_Q);
-	errs[27] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_R);
-	errs[28] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_S);
-	errs[29] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_T);
-	errs[30] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_U);
-	errs[31] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_V);
-	errs[32] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_W);
-	errs[33] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_X);
-	errs[34] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_Y);
-	errs[35] = ioctl(uinput_fd, UI_SET_KEYBIT, KEY_Z);
+	errs[10] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_A);
+	errs[11] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_B);
+	errs[12] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_C);
+	errs[13] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_D);
+	errs[14] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_E);
+	errs[15] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_F);
+	errs[16] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_G);
+	errs[17] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_H);
+	errs[18] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_I);
+	errs[19] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_J);
+	errs[20] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_K);
+	errs[21] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_L);
+	errs[22] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_M);
+	errs[23] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_N);
+	errs[24] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_O);
+	errs[25] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_P);
+	errs[26] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_Q);
+	errs[27] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_R);
+	errs[28] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_S);
+	errs[29] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_T);
+	errs[30] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_U);
+	errs[31] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_V);
+	errs[32] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_W);
+	errs[33] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_X);
+	errs[34] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_Y);
+	errs[35] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_Z);
 
-    errs[36] = ioctl(uinput_fd, UI_SET_RELBIT, REL_X);
-    errs[37] = ioctl(uinput_fd, UI_SET_RELBIT, REL_Y);
-	errs[38] = ioctl(uinput_fd, UI_SET_KEYBIT, BTN_LEFT);
-	errs[39] = ioctl(uinput_fd, UI_SET_KEYBIT, BTN_RIGHT);
+    errs[36] = ioctl(wrapper_lib_uinput_fd, UI_SET_RELBIT, REL_X);
+    errs[37] = ioctl(wrapper_lib_uinput_fd, UI_SET_RELBIT, REL_Y);
+	errs[38] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, BTN_LEFT);
+	errs[39] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, BTN_RIGHT);
 	errs[40] = 0;
 	for (int i = 0; i < NB_BUTTONS - 1; i++)
 	{
@@ -64,12 +64,12 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 {
 	struct uinput_user_dev uinp;
 
-	uinput_fd = open(path_to_uinput, O_WRONLY | O_NONBLOCK);
-	if (uinput_fd < 0)
+	wrapper_lib_uinput_fd = open(path_to_uinput, O_WRONLY | O_NONBLOCK);
+	if (wrapper_lib_uinput_fd < 0)
 	{
 		return (-1);
 	}
-	if (ioctl(uinput_fd, UI_SET_EVBIT, EV_KEY) < 0 || ioctl(uinput_fd, UI_SET_EVBIT, EV_REL) < 0)
+	if (ioctl(wrapper_lib_uinput_fd, UI_SET_EVBIT, EV_KEY) < 0 || ioctl(wrapper_lib_uinput_fd, UI_SET_EVBIT, EV_REL) < 0)
 	{
 		return (-1);
 	}
@@ -85,15 +85,15 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 	{
 		return (-1);
 	}
-	if (write(uinput_fd, &uinp, sizeof(uinp)) < 0)
+	if (write(wrapper_lib_uinput_fd, &uinp, sizeof(uinp)) < 0)
 	{
 		return (-1);
 	}
-    if (ioctl(uinput_fd, UI_DEV_CREATE) < 0)
+    if (ioctl(wrapper_lib_uinput_fd, UI_DEV_CREATE) < 0)
 	{
 		return (-1);
     }
-	return (uinput_fd);
+	return (wrapper_lib_uinput_fd);
 }
 
 int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, int event_type, u_int32_t release_key_after_ms)

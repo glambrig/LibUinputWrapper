@@ -1,6 +1,6 @@
 .PHONY: all clean fclean re
 
-NAME = uinputWrapperLib.a
+NAME = libUinputWrapper.a
 
 CC = gcc
 
