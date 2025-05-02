@@ -16,7 +16,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $^
 
 $(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -c -o $@ $< -O
+	$(CC) $(CFLAGS) -c -o $@ $< -O -g
 
 clean:
 	rm -f ./*.o

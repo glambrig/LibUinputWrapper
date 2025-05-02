@@ -64,7 +64,7 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 {
 	struct uinput_user_dev uinp;
 
-	wrapper_lib_uinput_fd = open(path_to_uinput, O_WRONLY | O_NONBLOCK);
+	wrapper_lib_uinput_fd = open(path_to_uinput, O_WRONLY);
 	if (wrapper_lib_uinput_fd < 0)
 	{
 		return (-1);
@@ -144,7 +144,7 @@ int	click(int device_fd, u_int32_t release_key_after_ms)
 
 int	press_key(int device_fd, u_int16_t key, u_int32_t release_key_after_ms)
 {
-	return (send_event_to_device(device_fd, key, 1, MOUSE_EVENT, release_key_after_ms));
+	return (send_event_to_device(device_fd, key, 1, KEY_EVENT, release_key_after_ms));
 }
 
 int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize screensize)
