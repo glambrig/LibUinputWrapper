@@ -139,12 +139,12 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 
 int	click(int device_fd, u_int32_t release_key_after_ms)
 {
-	return (send_event_to_device(device_fd, BTN_LEFT, 1, MOUSE_EVENT, release_key_after_ms));
+	return (send_event_to_device(device_fd, BTN_LEFT, 1, MOUSE_EVENT, release_key_after_ms * 1000));
 }
 
 int	press_key(int device_fd, u_int16_t key, u_int32_t release_key_after_ms)
 {
-	return (send_event_to_device(device_fd, key, 1, KEY_EVENT, release_key_after_ms));
+	return (send_event_to_device(device_fd, key, 1, KEY_EVENT, release_key_after_ms * 1000));
 }
 
 int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize screensize)
