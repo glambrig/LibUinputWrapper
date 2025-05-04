@@ -17,10 +17,9 @@ void fill_vector(std::vector<std::string> &v)
 	}
 	catch(...)
 	{
-		std::cerr << "sum ting wong\n";
+		std::cerr << "Unable to fill arg vector\n";
 		exit(EXIT_FAILURE);
 	}
-	std::cout << "ok\n";
 }
 
 int translate_string_into_key(const std::string & s)
@@ -108,14 +107,17 @@ void handle_key(const int fd, const std::string & s)
 		press_key(fd, key, 0);
 	else
 	{
-		std::cerr << "wrong key entered\n";
+		std::cerr << "Wrong key entered: key = " << s << '\n';
 	}
 }
 
 void handle_mouse(const int fd, const std::string & s)
 {
 	if (s == "lclick" || s == "rclick")
+	{
 		libUinputWrapper::click(fd, 0);
+		return ;
+	}
 	else if (s == "up" || s == "down" || s == "left" || s == "right")
 	{
 		if (s == "up")
@@ -137,7 +139,7 @@ int parse_args(const int fd)
 	std::vector<std::string>	string_v;
 
 	fill_vector(string_v);
-	for (std::vector<std::string>::iterator it = string_v.begin(); it != string_v.end(); it++)
+	for (std::vector<std::string>::iterator it = string_v.begin() + 2; it != string_v.end(); it++)
 	{
 		if (it->compare("-k"))
 		{
@@ -145,12 +147,12 @@ int parse_args(const int fd)
 				handle_key(fd, *(it + 1));
 			else
 			{
-				std::cerr << "no argument provided to -k\n";
+				std::cerr << "error: No argument provided to -k\n";
 				return (-1);
 			}
 			if (it + 2 != string_v.end())
 			{
-				it += 2;
+				it++;
 				continue ;
 			}
 		}
@@ -160,12 +162,12 @@ int parse_args(const int fd)
 				handle_mouse(fd, *(it + 1));
 			else
 			{
-				std::cerr << "no argument provided to -m\n";
+				std::cerr << "error: No argument provided to -m\n";
 				return (-1);
 			}
 			if (it + 2 != string_v.end())
 			{
-				it += 2;
+				it++;
 				continue ;
 			}
 		}
@@ -190,12 +192,12 @@ int main(int argc, char **argv)
 	fd = libUinputWrapper::setup_device("command line testing device", std::string(argv[1]).c_str());
 	if (fd < 0)
 	{
-		std::cerr << "sum ting wong: setup_device()\n";
+		std::cerr << "error: setup_device() ... do you have the path to the uinput module as first argument?\n";
 		return (-1);
 	}
 	if (parse_args(fd) < 0)
 	{
-		std::cerr << "sum ting wong: parse_args()\n";
+		std::cerr << "error: parse_args() failed\n";
 		return (-1);	
 	}
 	return (0);

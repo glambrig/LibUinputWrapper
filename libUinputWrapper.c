@@ -67,10 +67,12 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 	wrapper_lib_uinput_fd = open(path_to_uinput, O_WRONLY);
 	if (wrapper_lib_uinput_fd < 0)
 	{
+		perror("open");
 		return (-1);
 	}
 	if (ioctl(wrapper_lib_uinput_fd, UI_SET_EVBIT, EV_KEY) < 0 || ioctl(wrapper_lib_uinput_fd, UI_SET_EVBIT, EV_REL) < 0)
 	{
+		perror("ioctl");
 		return (-1);
 	}
 
@@ -87,10 +89,12 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 	}
 	if (write(wrapper_lib_uinput_fd, &uinp, sizeof(uinp)) < 0)
 	{
+		perror("write");
 		return (-1);
 	}
     if (ioctl(wrapper_lib_uinput_fd, UI_DEV_CREATE) < 0)
 	{
+		perror("ioctl");
 		return (-1);
     }
 	return (wrapper_lib_uinput_fd);
@@ -122,10 +126,8 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 		return (-1);
     }
 
-	if (release_key_after_ms > 0)
-	{
-		usleep(release_key_after_ms);
-	}
+	usleep(release_key_after_ms + 25000);
+
 	event.type = EV_SYN;
 	event.code = SYN_REPORT;
 	event.value = 1;
@@ -134,6 +136,7 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 		(void)write(STDERR_FILENO, "uinput: write to device failed\n", 32);
 		return (-1);
 	}
+	usleep(5000);
 	return (0);
 }
 

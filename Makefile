@@ -19,7 +19,9 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-cmd: 
+cmd: $(CMDNAME)
+
+$(CMDNAME):
 	$(CMDCC) $(CMDSRC) $(CFLAGS) -o $(CMDNAME)
 
 $(NAME): $(OBJ)
