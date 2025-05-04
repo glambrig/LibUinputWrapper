@@ -1,4 +1,5 @@
 #include "libUinputWrapper.h"
+#include <stdio.h>
 
 int wrapper_lib_uinput_fd = -1;
 

@@ -2,13 +2,13 @@
 
 NAME = libUinputWrapper.a
 
-CMDNAME = cmd_libuinput_test
+CMDNAME = cmd_libuinput_demo
 
 CC = gcc
 
 CMDCC = c++
 
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 
 CMDSRC = libUinputWrapper.c \
 			command_line_test.cpp
@@ -19,10 +19,11 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-cmd: $(CMDNAME)
-
-$(CMDNAME):
+cmd:
 	$(CMDCC) $(CMDSRC) $(CFLAGS) -o $(CMDNAME)
+
+#$(CMDNAME):
+#	$(CMDCC) $(CMDSRC) $(CFLAGS) -o $(CMDNAME)
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $^

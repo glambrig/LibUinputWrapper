@@ -4,7 +4,7 @@
 
 The reasons for the library's existence is that I found mouse and keyboard simulation to be overly and unnecessarily complicated on Linux. It's also to avoid using XLib. It is basically a wrapper library for interacting with the uinput kernel module.
 
-This is still a work in progress, and as such, certain things are still incomplete.
+This is a work in progress, and as such, certain things are still incomplete.
 
 Running `make` gives you a static library file that can be linked with other projects.
 If you want to use these functions in C++, that can be done using the `LibUinputWrapper::` namespace.
@@ -15,13 +15,13 @@ In order for this library to work, you have to make sure the uinput kernel modul
 
 `sudo modprobe uinput`
 
-`sudo chmod 666 {Path to uinput}`
+You must also make sure that you have the correct access rights to the uinput device. This can be done either with `sudo chmod 666 {Path to uinput}` or by running this program as sudo.
 
-The path to uinput is usually /dev/uinput or /dev/input/uinput depending on your system.
+Sidenote: the path to uinput is usually /dev/uinput or /dev/input/uinput depending on your system.
 
-#### Command line `cmd_libuinput_test` utility
-You can test this library in the command line by using the the `cmd_libuinput_test` program.
-To create this program, use `make cmd`, then run the `cmd_libuinput_test` binary.
+#### Command line `cmd_libuinput_demo` utility
+You can test this library in the command line by using the the `cmd_libuinput_demo` program.
+To create this program, use `make cmd`, then run the `cmd_libuinput_demo` binary.
 
 The available options are as follows:
 - `-m`: simulate a mouse event. Available mouse events are: `rclick`, `lclick`, `up`, `down`, `left`, `right`.

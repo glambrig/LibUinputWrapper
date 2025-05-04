@@ -104,7 +104,7 @@ void handle_key(const int fd, const std::string & s)
 {
 	int key = translate_string_into_key(s);
 	if (key != -1)
-		press_key(fd, key, 0);
+		press_key(fd, key, 50);
 	else
 	{
 		std::cerr << "Wrong key entered: key = " << s << '\n';
@@ -141,8 +141,10 @@ int parse_args(const int fd)
 	fill_vector(string_v);
 	for (std::vector<std::string>::iterator it = string_v.begin() + 2; it != string_v.end(); it++)
 	{
-		if (it->compare("-k"))
+		std::cout << "*it = " << *it << '\n';
+		if (it->compare("-k") == 0)
 		{
+			std::cout << "-k detected\n";
 			if (it + 1 != string_v.end())
 				handle_key(fd, *(it + 1));
 			else
@@ -156,8 +158,9 @@ int parse_args(const int fd)
 				continue ;
 			}
 		}
-		else if (it->compare("-m"))
+		else if (it->compare("-m") == 0)
 		{
+			std::cout << "-m detected\n";
 			if (it + 1 != string_v.end())
 				handle_mouse(fd, *(it + 1));
 			else
