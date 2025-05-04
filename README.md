@@ -18,3 +18,11 @@ In order for this library to work, you have to make sure the uinput kernel modul
 `sudo chmod 666 {Path to uinput}`
 
 The path to uinput is usually /dev/uinput or /dev/input/uinput depending on your system.
+
+#### Command line `cmd_libuinput_test` utility
+You can test this library in the command line by using the the `cmd_libuinput_test` program.
+To create this program, use `make cmd`, then run the `cmd_libuinput_test` binary.
+
+The available options are as follows:
+- `-m`: simulate a mouse event. Available mouse events are: `rclick`, `lclick`, `up`, `down`, `left`, `right`.
+- `-k`: simulate a key event. Available key events are: all alphanumeric keys.
