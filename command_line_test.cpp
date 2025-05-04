@@ -6,13 +6,13 @@
 int g_ac;
 char **g_av;
 
-void fill_vector(std::vector<const char *> &v)
+void fill_vector(std::vector<std::string> &v)
 {
 	try
 	{
 		for (int i = 0; i < g_ac; i++)
 		{
-			v.push_back(g_av[i]);
+			v.push_back(std::string(g_av[i]));
 		}
 	}
 	catch(...)
@@ -45,57 +45,57 @@ int translate_string_into_key(const std::string & s)
 		return (KEY_8);
 	else if (s.compare("9") == 0)
 		return (KEY_9);
-	else if (s.compare("a") == 0 || s.compare(std::toupper("a")) == 0)
+	else if (s == "A" || s == "a")
 		return (KEY_A);
-	else if (s.compare("b") == 0 || s.compare(std::toupper("b")) == 0)
+	else if (s == "B" || s == "b")
 		return (KEY_B);
-	else if (s.compare("c") == 0 || s.compare(std::toupper("c")) == 0)
+	else if (s == "C" || s == "c")
 		return (KEY_C);
-	else if (s.compare("d") == 0 || s.compare(std::toupper("d")) == 0)
+	else if (s == "D" || s == "d")
 		return (KEY_D);
-	else if (s.compare("e") == 0 || s.compare(std::toupper("e")) == 0)
+	else if (s == "E" || s == "e")
 		return (KEY_E);
-	else if (s.compare("f") == 0 || s.compare(std::toupper("f")) == 0)
+	else if (s == "F" || s == "f")
 		return (KEY_F);
-	else if (s.compare("g") == 0 || s.compare(std::toupper("g")) == 0)
+	else if (s == "G" || s == "g")
 		return (KEY_G);
-	else if (s.compare("h") == 0 || s.compare(std::toupper("h")) == 0)
+	else if (s == "H" || s == "h")
 		return (KEY_H);
-	else if (s.compare("i") == 0 || s.compare(std::toupper("i")) == 0)
+	else if (s == "I" || s == "i")
 		return (KEY_I);
-	else if (s.compare("j") == 0 || s.compare(std::toupper("j")) == 0)
+	else if (s == "J" || s == "j")
 		return (KEY_J);
-	else if (s.compare("k") == 0 || s.compare(std::toupper("k")) == 0)
+	else if (s == "K" || s == "k")
 		return (KEY_K);
-	else if (s.compare("l") == 0 || s.compare(std::toupper("l")) == 0)
+	else if (s == "L" || s == "l")
 		return (KEY_L);
-	else if (s.compare("m") == 0 || s.compare(std::toupper("m")) == 0)
+	else if (s == "M" || s == "m")
 		return (KEY_M);
-	else if (s.compare("n") == 0 || s.compare(std::toupper("n")) == 0)
+	else if (s == "N" || s == "n")
 		return (KEY_N);
-	else if (s.compare("o") == 0 || s.compare(std::toupper("o")) == 0)
+	else if (s == "O" || s == "o")
 		return (KEY_O);
-	else if (s.compare("p") == 0 || s.compare(std::toupper("p")) == 0)
+	else if (s == "P" || s == "p")
 		return (KEY_P);
-	else if (s.compare("q") == 0 || s.compare(std::toupper("q")) == 0)
+	else if (s == "Q" || s == "q")
 		return (KEY_Q);
-	else if (s.compare("r") == 0 || s.compare(std::toupper("r")) == 0)
+	else if (s == "R" || s == "r")
 		return (KEY_R);
-	else if (s.compare("s") == 0 || s.compare(std::toupper("s")) == 0)
+	else if (s == "S" || s == "s")
 		return (KEY_S);
-	else if (s.compare("t") == 0 || s.compare(std::toupper("t")) == 0)
+	else if (s == "T" || s == "t")
 		return (KEY_T);
-	else if (s.compare("u") == 0 || s.compare(std::toupper("u")) == 0)
+	else if (s == "U" || s == "u")
 		return (KEY_U);
-	else if (s.compare("v") == 0 || s.compare(std::toupper("v")) == 0)
+	else if (s == "V" || s == "v")
 		return (KEY_V);
-	else if (s.compare("w") == 0 || s.compare(std::toupper("w")) == 0)
+	else if (s == "W" || s == "w")
 		return (KEY_W);
-	else if (s.compare("x") == 0 || s.compare(std::toupper("x")) == 0)
+	else if (s == "X" || s == "x")
 		return (KEY_X);
-	else if (s.compare("y") == 0 || s.compare(std::toupper("y")) == 0)
+	else if (s == "Y" || s == "y")
 		return (KEY_Y);
-	else if (s.compare("z") == 0 || s.compare(std::toupper("z")) == 0)
+	else if (s == "Z" || s == "z")
 		return (KEY_Z);
 	else
 		return (-1);
@@ -108,7 +108,7 @@ void handle_key(const int fd, const std::string & s)
 		press_key(fd, key, 0);
 	else
 	{
-		std::cerr << "wrong key entered\n"
+		std::cerr << "wrong key entered\n";
 	}
 }
 
@@ -134,15 +134,12 @@ void handle_mouse(const int fd, const std::string & s)
 
 int parse_args(const int fd)
 {
-	std::vector<const char *>	char_v;
 	std::vector<std::string>	string_v;
 
-	fill_vector(char_v);
-	string_v::vector(char_v);
-
+	fill_vector(string_v);
 	for (std::vector<std::string>::iterator it = string_v.begin(); it != string_v.end(); it++)
 	{
-		if (s.compare("-k"))
+		if (it->compare("-k"))
 		{
 			if (it + 1 != string_v.end())
 				handle_key(fd, *(it + 1));
@@ -157,7 +154,7 @@ int parse_args(const int fd)
 				continue ;
 			}
 		}
-		else if (s.compare("-m"))
+		else if (it->compare("-m"))
 		{
 			if (it + 1 != string_v.end())
 				handle_mouse(fd, *(it + 1));
@@ -185,11 +182,9 @@ int main(int argc, char **argv)
 	g_av = argv;
 	if (argc < 2)
 	{
-		std::cout << "no arguments provided\n"
-					<< "syntax: ./command_line_test "
-					<< "{path to uinput module} "
-					<< "{-k/-m} " 
-					<< "{-k/-m parameter}...\n";
+		std::cerr << "Too few arguments:\n"
+					<< "-m: simulate a mouse event. Available mouse events are: rclick, lclick, up, down, left, right.\n"
+    				<< "-k: simulate a key event. Available key events are: all alphanumeric keys.\n";
 		return (0);
 	}
 	fd = libUinputWrapper::setup_device("command line testing device", std::string(argv[1]).c_str());
