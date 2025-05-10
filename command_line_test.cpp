@@ -103,8 +103,9 @@ int translate_string_into_key(const std::string & s)
 void handle_key(const int fd, const std::string & s)
 {
 	int key = translate_string_into_key(s);
+
 	if (key != -1)
-		press_key(fd, key, 50);
+		libUinputWrapper::press_key(fd, key, 0);
 	else
 	{
 		std::cerr << "Wrong key entered: key = " << s << '\n';
@@ -141,10 +142,9 @@ int parse_args(const int fd)
 	fill_vector(string_v);
 	for (std::vector<std::string>::iterator it = string_v.begin() + 2; it != string_v.end(); it++)
 	{
-		std::cout << "*it = " << *it << '\n';
 		if (it->compare("-k") == 0)
 		{
-			std::cout << "-k detected\n";
+			std::cout << "-k detected: arg = " << *(it + 1) << '\n';
 			if (it + 1 != string_v.end())
 				handle_key(fd, *(it + 1));
 			else
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
     				<< "-k: simulate a key event. Available key events are: all alphanumeric keys.\n";
 		return (0);
 	}
-	fd = libUinputWrapper::setup_device("command line testing device", std::string(argv[1]).c_str());
+	fd = libUinputWrapper::setup_device("command-line-testing-device", std::string(argv[1]).c_str());
 	if (fd < 0)
 	{
 		std::cerr << "error: setup_device() ... do you have the path to the uinput module as first argument?\n";

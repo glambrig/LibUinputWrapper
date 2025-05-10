@@ -54,7 +54,10 @@ static int	checkIoctlErrors()
 	{
 		if (errs[i] < 0)
 		{
-			(void)write(STDERR_FILENO, "uinput: failed to set ioctl\n", 29);
+			if (write(STDERR_FILENO, "uinput: failed to set ioctl\n", 29) < 0)
+			{
+				perror("write");
+			}
 			return (-1);
 		}
 	}
@@ -98,6 +101,7 @@ int setup_device(const char *device_name, const char *path_to_uinput)
 		perror("ioctl");
 		return (-1);
     }
+	sleep(1);
 	return (wrapper_lib_uinput_fd);
 }
 
@@ -116,39 +120,70 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 	}
 	else
 	{
-		(void)write(STDERR_FILENO, "uinput: invalid event type\n", 28);
+		if (write(STDERR_FILENO, "uinput: invalid event type\n", 28) < 0)
+		{
+			perror("write");
+		}
 		return (-1);
 	}
     event.code = which_key;
     event.value = key_value;
     if (write(device_fd, &event, sizeof(event)) < 0)
 	{
-		(void)write(STDERR_FILENO, "uinput: write to device failed\n", 32);
+		if (write(STDERR_FILENO, "uinput: write to device failed\n", 32) < 0)
+		{
+			perror("write");
+		}
 		return (-1);
     }
 
-	usleep(release_key_after_ms + 25000);
+	if (release_key_after_ms > 0)
+	{
+		usleep(release_key_after_ms * 1000);
+	}
+	else
+	{
+		usleep(5000);
+	}
 
 	event.type = EV_SYN;
 	event.code = SYN_REPORT;
 	event.value = 1;
 	if (write(device_fd, &event, sizeof(event)) < 0)
 	{
-		(void)write(STDERR_FILENO, "uinput: write to device failed\n", 32);
+		if (write(STDERR_FILENO, "uinput: write to device failed\n", 32) < 0)
+		{
+			perror("write");
+		}
 		return (-1);
 	}
-	usleep(5000);
 	return (0);
 }
 
 int	click(int device_fd, u_int32_t release_key_after_ms)
 {
-	return (send_event_to_device(device_fd, BTN_LEFT, 1, MOUSE_EVENT, release_key_after_ms * 1000));
+	if (send_event_to_device(device_fd, BTN_LEFT, 1, MOUSE_EVENT, release_key_after_ms) < 0)
+	{
+		return (-1);
+	}
+	if (send_event_to_device(device_fd, BTN_LEFT, 0, MOUSE_EVENT, release_key_after_ms) < 0)
+	{
+		return (-1);
+	}
+	return (0);
 }
 
 int	press_key(int device_fd, u_int16_t key, u_int32_t release_key_after_ms)
 {
-	return (send_event_to_device(device_fd, key, 1, KEY_EVENT, release_key_after_ms * 1000));
+	if (send_event_to_device(device_fd, key, 1, KEY_EVENT, release_key_after_ms) < 0)
+	{
+		return (-1);
+	}
+	if (send_event_to_device(device_fd, key, 0, KEY_EVENT, release_key_after_ms) < 0)
+	{
+		return (-1);
+	}
+	return (0);
 }
 
 int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize screensize)
