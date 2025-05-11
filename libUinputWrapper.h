@@ -8,7 +8,9 @@ extern "C"
 
 # define NB_BUTTONS 41
 # define KEY_EVENT 0
-# define MOUSE_EVENT 1
+# define MOUSE_MOV_EVENT 1
+# define LEFT_CLICK 0
+# define RIGHT_CLICK 1
 
 # include <linux/input.h>
 # include <linux/uinput.h>
@@ -36,7 +38,7 @@ int setup_device(const char *device_name, const char *path_to_uinput);
 *	device_fd: file descriptor got from setup_device()
 *	which_key: the key or button that is to be simulated (see /usr/include/linux/input-event-codes.h)
 *	key_value: 0 for unpressed, 1 for pressed, or offset for mouse movement
-*	event_type: either KEY_EVENT or MOUSE_EVENT
+*	event_type: either KEY_EVENT or MOUSE_MOV_EVENT
 *	release_key_after_ms: how long the key should stay pressed, or 0 for instant press and release
 */
 int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, int event_type, u_int32_t release_key_after_ms);
@@ -44,7 +46,7 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 /*
 *	simulates a click
 */
-int	click(int device_fd, u_int32_t release_key_after_ms);
+int	click(int device_fd, u_int8_t which_click, u_int32_t release_key_after_ms);
 
 /*
 *	simulates a keypress
@@ -87,7 +89,7 @@ namespace libUinputWrapper
 	*	device_fd: file descriptor got from setup_device()
 	*	which_key: the key or button that is to be simulated (see /usr/include/linux/input-event-codes.h)
 	*	key_value: 0 for unpressed, 1 for pressed, or offset for mouse movement
-	*	event_type: either KEY_EVENT or MOUSE_EVENT
+	*	event_type: either KEY_EVENT or MOUSE_MOV_EVENT
 	*	release_key_after_ms: how long the key should stay pressed, or 0 for instant press and release
 	*/
     inline int send_event_to_device(int device_fd, unsigned int which_key, int key_value, int event_type, u_int32_t release_key_after_ms)
@@ -98,9 +100,9 @@ namespace libUinputWrapper
 	/*
 	*	simulates a click
 	*/
-	inline int	click(int device_fd, u_int32_t release_key_after_ms)
+	inline int	click(int device_fd, u_int8_t which_click, u_int32_t release_key_after_ms)
 	{
-        return (::click(device_fd, release_key_after_ms));
+        return (::click(device_fd, which_click, release_key_after_ms));
     }
 
 	/*

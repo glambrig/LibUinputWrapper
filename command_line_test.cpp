@@ -114,21 +114,34 @@ void handle_key(const int fd, const std::string & s)
 
 void handle_mouse(const int fd, const std::string & s)
 {
-	if (s == "lclick" || s == "rclick")
+	if (s == "lclick")
 	{
-		libUinputWrapper::click(fd, 0);
+		libUinputWrapper::click(fd, LEFT_CLICK, 100);
 		return ;
+	}
+	else if (s == "rclick")
+	{
+		libUinputWrapper::click(fd, RIGHT_CLICK, 100);
+		return ;	
 	}
 	else if (s == "up" || s == "down" || s == "left" || s == "right")
 	{
 		if (s == "up")
-			libUinputWrapper::move_mouse_from_cursor(fd, 0, 25);
-		if (s == "down")
+		{
 			libUinputWrapper::move_mouse_from_cursor(fd, 0, -25);
+		}
+		if (s == "down")
+		{
+			libUinputWrapper::move_mouse_from_cursor(fd, 0, 25);
+		}
 		if (s == "left")
-			libUinputWrapper::move_mouse_from_cursor(fd, 25, 0);
+		{
+			libUinputWrapper::move_mouse_from_cursor(fd, -45, 0);
+		}
 		if (s == "right")
-			libUinputWrapper::move_mouse_from_cursor(fd, -25, 0);
+		{
+			libUinputWrapper::move_mouse_from_cursor(fd, 45, 0);
+		}
 		return ;
 	}
 	std::cerr << "wrong mouse option ... must be: lclick/rclick/up/down/left/right\n";
@@ -160,7 +173,7 @@ int parse_args(const int fd)
 		}
 		else if (it->compare("-m") == 0)
 		{
-			std::cout << "-m detected\n";
+			std::cout << "-m detected: arg = " << *(it + 1) << '\n';
 			if (it + 1 != string_v.end())
 				handle_mouse(fd, *(it + 1));
 			else
@@ -195,7 +208,9 @@ int main(int argc, char **argv)
 	fd = libUinputWrapper::setup_device("command-line-testing-device", std::string(argv[1]).c_str());
 	if (fd < 0)
 	{
-		std::cerr << "error: setup_device() ... do you have the path to the uinput module as first argument?\n";
+		std::cerr << "error: setup_device() ... "
+					<< "do you have the path to the uinput module as first argument?\n"
+					<< "do you have the correct permissions? (sudo)";
 		return (-1);
 	}
 	if (parse_args(fd) < 0)

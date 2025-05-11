@@ -109,14 +109,15 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 {
 	struct input_event	event;
 
+	memset(&event, 0, sizeof(event));
     gettimeofday(&event.time, NULL);
-	if (event_type == KEY_EVENT)
+	if (event_type == MOUSE_MOV_EVENT)
+	{
+		event.type = EV_REL;
+	}
+	else if (event_type == KEY_EVENT)
 	{
     	event.type = EV_KEY;
-	}
-	else if (event_type == MOUSE_EVENT)
-	{
-    	event.type = EV_REL;
 	}
 	else
 	{
@@ -160,14 +161,36 @@ int	send_event_to_device(int device_fd, unsigned int which_key, int key_value, i
 	return (0);
 }
 
-int	click(int device_fd, u_int32_t release_key_after_ms)
+int	click(int device_fd, u_int8_t which_click, u_int32_t release_key_after_ms)
 {
-	if (send_event_to_device(device_fd, BTN_LEFT, 1, MOUSE_EVENT, release_key_after_ms) < 0)
+	if (which_click == LEFT_CLICK)
 	{
-		return (-1);
+		if (send_event_to_device(device_fd, BTN_LEFT, 1, KEY_EVENT, release_key_after_ms) < 0)
+		{
+			return (-1);
+		}
+		if (send_event_to_device(device_fd, BTN_LEFT, 0, KEY_EVENT, release_key_after_ms) < 0)
+		{
+			return (-1);
+		}
 	}
-	if (send_event_to_device(device_fd, BTN_LEFT, 0, MOUSE_EVENT, release_key_after_ms) < 0)
+	else if (which_click == RIGHT_CLICK)
 	{
+		if (send_event_to_device(device_fd, BTN_RIGHT, 1, KEY_EVENT, release_key_after_ms) < 0)
+		{
+			return (-1);
+		}
+		if (send_event_to_device(device_fd, BTN_RIGHT, 0, KEY_EVENT, release_key_after_ms) < 0)
+		{
+			return (-1);
+		}
+	}
+	else
+	{
+		if (write(STDERR_FILENO, "uinput: invalid click type\n", 27) < 0)
+		{
+			perror("write");
+		}
 		return (-1);
 	}
 	return (0);
@@ -188,11 +211,11 @@ int	press_key(int device_fd, u_int16_t key, u_int32_t release_key_after_ms)
 
 int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize screensize)
 {
-	if (send_event_to_device(device_fd, REL_X, screensize.x - x, MOUSE_EVENT, 0) < 0)
+	if (send_event_to_device(device_fd, REL_X, screensize.x - x, MOUSE_MOV_EVENT, 0) < 0)
 	{
 		return (-1);
 	}
-	if (send_event_to_device(device_fd, REL_Y, screensize.y - y, MOUSE_EVENT, 0) < 0)
+	if (send_event_to_device(device_fd, REL_Y, screensize.y - y, MOUSE_MOV_EVENT, 0) < 0)
 	{
 		return (-1);
 	}
@@ -201,11 +224,11 @@ int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize scr
 
 int	move_mouse_from_cursor(int device_fd, int16_t x, int16_t y)
 {
-	if (send_event_to_device(device_fd, REL_X, x, MOUSE_EVENT, 0) < 0)
+	if (send_event_to_device(device_fd, REL_X, x, MOUSE_MOV_EVENT, 0) < 0)
 	{
 		return (-1);
 	}
-	if (send_event_to_device(device_fd, REL_Y, y, MOUSE_EVENT, 0) < 0)
+	if (send_event_to_device(device_fd, REL_Y, y, MOUSE_MOV_EVENT, 0) < 0)
 	{
 		return (-1);
 	}
