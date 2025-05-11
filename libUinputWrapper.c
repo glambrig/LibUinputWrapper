@@ -1,5 +1,6 @@
 #include "libUinputWrapper.h"
 #include <stdio.h>
+#include <ctype.h>
 
 int wrapper_lib_uinput_fd = -1;
 
@@ -233,6 +234,71 @@ int	move_mouse_from_cursor(int device_fd, int16_t x, int16_t y)
 		return (-1);
 	}
 	return (0);	
+}
+
+static int receive_keycode_from_char(const char c)
+{
+	char lower = tolower(c);
+
+	if (lower == 'a') return KEY_A;
+	if (lower == 'b') return KEY_B;
+	if (lower == 'c') return KEY_C;
+	if (lower == 'd') return KEY_D;
+	if (lower == 'e') return KEY_E;
+	if (lower == 'f') return KEY_F;
+	if (lower == 'g') return KEY_G;
+	if (lower == 'h') return KEY_H;
+	if (lower == 'i') return KEY_I;
+	if (lower == 'j') return KEY_J;
+	if (lower == 'k') return KEY_K;
+	if (lower == 'l') return KEY_L;
+	if (lower == 'm') return KEY_M;
+	if (lower == 'n') return KEY_N;
+	if (lower == 'o') return KEY_O;
+	if (lower == 'p') return KEY_P;
+	if (lower == 'q') return KEY_Q;
+	if (lower == 'r') return KEY_R;
+	if (lower == 's') return KEY_S;
+	if (lower == 't') return KEY_T;
+	if (lower == 'u') return KEY_U;
+	if (lower == 'v') return KEY_V;
+	if (lower == 'w') return KEY_W;
+	if (lower == 'x') return KEY_X;
+	if (lower == 'y') return KEY_Y;
+	if (lower == 'z') return KEY_Z;
+	if (c == '0') return KEY_0;
+	if (c == '1') return KEY_1;
+	if (c == '2') return KEY_2;
+	if (c == '3') return KEY_3;
+	if (c == '4') return KEY_4;
+	if (c == '5') return KEY_5;
+	if (c == '6') return KEY_6;
+	if (c == '7') return KEY_7;
+	if (c == '8') return KEY_8;
+	if (c == '9') return KEY_9;
+
+	return (-1);
+}
+
+int type_string(int device_fd, const char *s)
+{
+	size_t		len;
+	u_int16_t	key;
+
+	len = strlen(s);
+	for (size_t i = 0; i < len; i++)
+	{
+		key = receive_keycode_from_char(s[i]);
+		if (key < 0)
+		{
+			return (-1);
+		}
+		if (press_key(device_fd, key, 0) < 0)
+		{
+			return (-1);
+		}
+	}
+	return (0);
 }
 
 int cleanup_device(int device_fd)

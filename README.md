@@ -23,6 +23,9 @@ Sidenote: the path to uinput is usually /dev/uinput or /dev/input/uinput dependi
 You can test this library in the command line by using the the `cmd_libuinput_demo` program.
 To create this program, use `make cmd`, then run the `cmd_libuinput_demo` binary.
 
+Example: `sudo ./cmd_liuinput_demo /dev/uinput -s helloworld -m up -m up -m right -m lclick ...`
+
 The available options are as follows:
 - `-m`: simulate a mouse event. Available mouse events are: `rclick`, `lclick`, `up`, `down`, `left`, `right`.
 - `-k`: simulate a key event. Available key events are: all alphanumeric keys.
+- `-s`: simulate multiple key events.

@@ -64,6 +64,11 @@ int	move_mouse_to_pos(int device_fd, int16_t x, int16_t y, struct screensize scr
 int	move_mouse_from_cursor(int device_fd, int16_t x, int16_t y);
 
 /*
+*	simulate multiple keypresses
+*/
+int type_string(int device_fd, const char *s);
+
+/*
 *	destroys the device and frees associated memory
 */
 int	cleanup_device(int device_fd);
@@ -73,6 +78,8 @@ int	cleanup_device(int device_fd);
 # endif
 
 # ifdef __cplusplus
+#  include <string>
+
 namespace libUinputWrapper
 {
 	/*
@@ -127,6 +134,14 @@ namespace libUinputWrapper
 	inline int	move_mouse_from_cursor(int device_fd, int16_t x, int16_t y)
 	{
         return (::move_mouse_from_cursor(device_fd, x, y));
+	}
+
+	/*
+	*	simulate multiple keypresses
+	*/
+	inline int type_string(int device_fd, const char *s)
+	{
+		return (::type_string(device_fd, s));
 	}
 
 	/*

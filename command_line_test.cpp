@@ -171,6 +171,22 @@ int parse_args(const int fd)
 				continue ;
 			}
 		}
+		else if (it->compare("-s") == 0)
+		{
+			std::cout << "-s detected: arg = " << *(it + 1) << '\n';
+			if (it + 1 != string_v.end())
+				libUinputWrapper::type_string(fd, *(it + 1));
+			else
+			{
+				std::cerr << "error: No argument provided to -s\n";
+				return (-1);
+			}
+			if (it + 2 != string_v.end())
+			{
+				it++;
+				continue ;
+			}
+		}
 		else if (it->compare("-m") == 0)
 		{
 			std::cout << "-m detected: arg = " << *(it + 1) << '\n';
@@ -208,9 +224,9 @@ int main(int argc, char **argv)
 	fd = libUinputWrapper::setup_device("command-line-testing-device", std::string(argv[1]).c_str());
 	if (fd < 0)
 	{
-		std::cerr << "error: setup_device() ... "
+		std::cerr << "error: setup_device() ... \n"
 					<< "do you have the path to the uinput module as first argument?\n"
-					<< "do you have the correct permissions? (sudo)";
+					<< "do you have the correct permissions? (sudo)\n";
 		return (-1);
 	}
 	if (parse_args(fd) < 0)
