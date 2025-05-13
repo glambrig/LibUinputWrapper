@@ -159,7 +159,9 @@ int parse_args(const int fd)
 		{
 			std::cout << "-k detected: arg = " << *(it + 1) << '\n';
 			if (it + 1 != string_v.end())
+			{
 				handle_key(fd, *(it + 1));
+			}
 			else
 			{
 				std::cerr << "error: No argument provided to -k\n";
@@ -175,7 +177,9 @@ int parse_args(const int fd)
 		{
 			std::cout << "-s detected: arg = " << *(it + 1) << '\n';
 			if (it + 1 != string_v.end())
-				libUinputWrapper::type_string(fd, *(it + 1));
+			{
+				libUinputWrapper::type_string(fd, (*(it + 1)).c_str());
+			}
 			else
 			{
 				std::cerr << "error: No argument provided to -s\n";
@@ -191,7 +195,9 @@ int parse_args(const int fd)
 		{
 			std::cout << "-m detected: arg = " << *(it + 1) << '\n';
 			if (it + 1 != string_v.end())
+			{
 				handle_mouse(fd, *(it + 1));
+			}
 			else
 			{
 				std::cerr << "error: No argument provided to -m\n";
