@@ -6,7 +6,7 @@ extern "C"
 {
 # endif
 
-# define NB_BUTTONS 41
+# define NB_BUTTONS 44
 # define KEY_EVENT 0
 # define MOUSE_MOV_EVENT 1
 # define LEFT_CLICK 0

@@ -50,7 +50,10 @@ static int	checkIoctlErrors()
     errs[37] = ioctl(wrapper_lib_uinput_fd, UI_SET_RELBIT, REL_Y);
 	errs[38] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, BTN_LEFT);
 	errs[39] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, BTN_RIGHT);
-	errs[40] = 0;
+	errs[40] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_SPACE);
+	errs[41] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_ENTER);
+	errs[42] = ioctl(wrapper_lib_uinput_fd, UI_SET_KEYBIT, KEY_BACKSPACE);
+	errs[43] = 0;
 	for (int i = 0; i < NB_BUTTONS - 1; i++)
 	{
 		if (errs[i] < 0)
