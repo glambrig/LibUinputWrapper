@@ -1,8 +1,7 @@
-# libUinputWrapper
 
-### An easy-to-use library which provides mouse and keyboard simulation on Linux.
+## An easy-to-use library which provides mouse and keyboard simulation on Linux.
 
-The reasons for the library's existence is that I found mouse and keyboard simulation to be overly and unnecessarily complicated on Linux. It's also to avoid using XLib. It is basically a wrapper library for interacting with the uinput kernel module.
+The reasons for this library's existence is that I found mouse and keyboard simulation to be overly and unnecessarily complicated on Linux. It's also to avoid using XLib. It is basically a wrapper library for interacting with the uinput kernel module.
 
 This is a work in progress, and as such, certain things are still incomplete.
 
