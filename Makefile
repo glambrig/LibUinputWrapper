@@ -29,7 +29,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $^
 
 $(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -c -o $@ $< -O -g
+	$(CC) $(CFLAGS) -c -o $@ $< -O
 
 clean:
 	rm -f ./*.o
